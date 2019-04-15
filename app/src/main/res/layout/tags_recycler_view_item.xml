@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:clickable="true">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="JAVASCRIPT"
+        android:id="@+id/tags_textview"
+        android:gravity="center_vertical"
+        android:textColor="@color/pressed_color"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:paddingLeft="20sp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Next"
+        android:id="@+id/nextButton"
+        android:visibility="invisible"/>
+
+
+</RelativeLayout>

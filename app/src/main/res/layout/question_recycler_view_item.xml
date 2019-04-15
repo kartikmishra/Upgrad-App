@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" Why is android so fragile?"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:layout_marginTop="20sp"
+        android:id="@+id/questionTextView"
+        android:layout_marginStart="10sp"
+        android:layout_marginLeft="10sp"
+        android:autoSizeTextType="uniform"/>
+
+</RelativeLayout>
