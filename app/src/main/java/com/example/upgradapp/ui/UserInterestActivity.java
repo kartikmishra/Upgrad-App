@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.upgradapp.R;
@@ -31,6 +32,7 @@ public class UserInterestActivity extends AppCompatActivity {
     private TagsAdapter adapter;
     public static Button nextButton;
     public static Button clearButton;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +42,14 @@ public class UserInterestActivity extends AppCompatActivity {
         Toolbar toolbar =  findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setTitle("Select tags of your choice");
         getTAGS();
 
         tags_recycler_view = findViewById(R.id.tags_recycler_view);
         nextButton = findViewById(R.id.nextButton);
         clearButton = findViewById(R.id.clearButton);
+        mProgressBar = findViewById(R.id.progressBar);
+
         adapter = new TagsAdapter(this, tagsItems);
 
         LinearLayoutManager manager = new LinearLayoutManager(this,
@@ -78,6 +83,11 @@ public class UserInterestActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
 
     public void getTAGS(){
 
@@ -86,9 +96,8 @@ public class UserInterestActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<TagsResponse> call, Response<TagsResponse> response) {
                         if(response.isSuccessful()){
-                            Toast.makeText(UserInterestActivity.this,
-                                    response.body().getItems().get(0).getName(), Toast.LENGTH_SHORT).show();
 
+                            mProgressBar.setVisibility(View.GONE);
                             tagsItems = response.body().getItems();
 
                             adapter.addAllItems(tagsItems);

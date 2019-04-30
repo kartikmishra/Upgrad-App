@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.upgradapp.R;
 import com.example.upgradapp.model.TagsItem;
@@ -52,9 +53,10 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagsAdapterVie
             tagsAdapterViewHolder.tags_texview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (getSelectedCount() < 4) {
+                    if (getSelectedCount() <= 4) {
                         toggleSelection(tagsAdapterViewHolder.getAdapterPosition());
-                    } else if (getSelectedCount() == 4) {
+
+                    }  if (getSelectedCount() > 4) {
                         UserInterestActivity.nextButton.setVisibility(View.VISIBLE);
                         UserInterestActivity.clearButton.setVisibility(View.VISIBLE);
 
@@ -62,6 +64,7 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagsAdapterVie
                             @Override
                             public void onClick(View v) {
                                 mSelected_items.clear();
+                                Toast.makeText(context, "Click on any item again", Toast.LENGTH_SHORT).show();
                                 UserInterestActivity.clearButton.setVisibility(View.INVISIBLE);
                                 UserInterestActivity.nextButton.setVisibility(View.INVISIBLE);
 
@@ -91,8 +94,8 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagsAdapterVie
         mSelected_items = new SparseBooleanArray();
         notifyDataSetChanged();
     }
-    public int getSelectedCount(){
-        return mSelected_items.size();
+    public int getSelectedCount() {
+        return mSelected_items.size()+1;
     }
 
     public SparseBooleanArray getSelectionIds(){

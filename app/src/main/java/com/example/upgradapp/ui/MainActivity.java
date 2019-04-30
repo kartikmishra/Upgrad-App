@@ -18,6 +18,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import android.view.Menu;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 
 import com.example.upgradapp.adapter.NavTagsAdapter;
@@ -54,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements NavTagsAdapter.Li
     private QuestionListAdapter questionListAdapter;
     private RecyclerView question_recycler_view;
     private QuestionViewModel viewModel;
+    private ProgressBar mProgressBar;
+    private TextView warning;
 
 
     @Override
@@ -79,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements NavTagsAdapter.Li
         
         navTagsRecyclerView = findViewById(R.id.nav_tags_rv);
         navTagsRelatedRecyclerView = findViewById(R.id.nav_tags_related_rv);
+        mProgressBar = findViewById(R.id.progressBar);
+        warning = findViewById(R.id.warningTv);
         LinearLayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         LinearLayoutManager manager1 = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         navTagsRecyclerView.setLayoutManager(manager);
@@ -117,6 +124,11 @@ public class MainActivity extends AppCompatActivity implements NavTagsAdapter.Li
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
 
     @Override
     public void onBackPressed() {
@@ -141,7 +153,9 @@ public class MainActivity extends AppCompatActivity implements NavTagsAdapter.Li
                 .enqueue(new Callback<TagsResponse>() {
                     @Override
                     public void onResponse(Call<TagsResponse> call, Response<TagsResponse> response) {
+
                         if(response.isSuccessful()){
+
 
                             tagsList.add(response.body().getItems().get(list.get(0)).getName());
                             tagsList.add(response.body().getItems().get(list.get(1)).getName());
@@ -171,9 +185,8 @@ public class MainActivity extends AppCompatActivity implements NavTagsAdapter.Li
                 .enqueue(new Callback<NavTagsResponse>() {
                     @Override
                     public void onResponse(Call<NavTagsResponse> call, Response<NavTagsResponse> response) {
+                        warning.setVisibility(View.GONE);
                         if(response.body() !=null){
-
-
                             navTagsItems = response.body().getItems();
 
                             navTagsRelatedAdapter = new NavTagsRelatedAdapter(MainActivity.this,navTagsItems);
